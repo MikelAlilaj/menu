@@ -63,3 +63,8 @@ Route::post('/business/store', 'ProductController@store')->name('store.business'
 Route::get('/edit/business/{id}', 'ProductController@EditBusiness');
 Route::post('/update/business/{id}', 'ProductController@UpdateBusiness');
 Route::get('/view/business/{id}', 'ProductController@ViewBusiness');
+
+
+Route::get('/', 'MainController@index');
+Route::get('/getStates/{id}', 'MainController@getStates');
+

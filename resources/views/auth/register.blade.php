@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-6">
+
+            <div class="card mx-4">
+                <div class="card-body p-4">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
@@ -13,48 +14,49 @@
 
 
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-flag fa-fw"></i>
-                            </span>
+                        <div class="form-group row">
+                            <label for="type_id" class="col-md-4 col-form-label text-md-right">{{ __('Type') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="type_id"  class="form-control select2 @error('type_id') is-invalid @enderror" data-placeholder="Choose Business Type" name="type_id" value="{{ old('type_id') }}" required autocomplete="type_id" autofocus>
+                                    <option label="Choose Business Type"></option>
+
+                                    @foreach($business_types as $br)
+                                        @if($br->isActive==1)
+                                            <option value="{{ $br->id }}">{{ $br->type_name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('type_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <select class="custom-select{{ $errors->has('type_id') ? ' is-invalid' : '' }}" id="type_id" name="type_id">
-                                <option value="" selected>Choose Business Type</option>
-                                @foreach($business_types as $br)
-                                    @if($br->isActive==1)
-                                        <option value="{{ $br->id }}">{{ $br->type_name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @if($errors->has('type_id'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('type_id') }}
-                                </div>
-                            @endif
                         </div>
 
 
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <i class="fa fa-flag fa-fw"></i>
-                            </span>
+                        <div class="form-group row">
+                            <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __('category_id') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="category_id"  class="form-control select2 @error('category_id') is-invalid @enderror" data-placeholder="Choose Business Category" name="category_id" value="{{ old('category_id') }}" required autocomplete="category_id" autofocus>
+                                    <option label="Choose Business Category"></option>
+
+
+                                    @foreach($business_category as $br)
+                                        @if($br->isActive==1)
+                                            <option value="{{ $br->id }}">{{ $br->category_name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                @error('category_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <select class="custom-select{{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category_id" name="category_id">
-                                <option value="" selected>Choose Business Category</option>
-                                @foreach($business_category as $br)
-                                    @if($br->isActive==1)
-                                        <option value="{{ $br->id }}">{{ $br->category_name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @if($errors->has('category_id'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('category_id') }}
-                                </div>
-                            @endif
                         </div>
 
 
@@ -129,6 +131,20 @@
                         </div>
 
 
+                        <div class="form-group row">
+                            <label for="Business_State" class="col-md-4 col-form-label text-md-right">{{ __('Business_State') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="Business_State" type="text" class="form-control @error('Business_State') is-invalid @enderror" name="Business_State" value="{{ old('Business_State') }}" required autocomplete="Business_State" autofocus>
+
+                                @error('Business_State')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <div class="form-group row">
                             <label for="Business_City" class="col-md-4 col-form-label text-md-right">{{ __('Business_City') }}</label>
@@ -146,19 +162,7 @@
 
 
 
-                        <div class="form-group row">
-                            <label for="Business_State" class="col-md-4 col-form-label text-md-right">{{ __('Business_State') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="Business_State" type="text" class="form-control @error('Business_State') is-invalid @enderror" name="Business_State" value="{{ old('Business_State') }}" required autocomplete="Business_State" autofocus>
-
-                                @error('Business_State')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
 
                         <div class="form-group row">
