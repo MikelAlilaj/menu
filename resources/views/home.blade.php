@@ -65,7 +65,7 @@
 
 
         <div class="sl-sideleft-menu">
-            <a href="" class="sl-menu-link active">
+            <a href="{{route('home')}}" class="sl-menu-link @if(\Route::current()->getName()== 'home') active @endif">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                     <span class="menu-item-label">Dashboard</span>
@@ -74,7 +74,7 @@
 
 
 
-            <a href="#" class="sl-menu-link">
+            <a href="#" class="sl-menu-link  @if(\Route::current()->getName()== 'all.business.types' || \Route::current()->getName()== 'all.business.category' || \Route::current()->getName()== 'all.product.category' )  active show-sub  @endif ">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
                     <span class="menu-item-label">Category</span>
@@ -82,11 +82,11 @@
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
             <ul class="sl-menu-sub nav flex-column">
-                <li class="nav-item"><a href="/menu/public/business/types/all" class="nav-link">All Business Types</a></li>
+                <li class="nav-item "><a href="{{ route('all.business.types')}}" class=" nav-link @if(\Route::current()->getName()== 'all.business.types')  active @endif">All Business Types</a></li>
 
-                <li class="nav-item"><a href="/menu/public/business/category/all" class="nav-link">All Business Category</a></li>
+                <li class="nav-item"><a href="{{ route('all.business.category')}}" class="nav-link @if(\Route::current()->getName()== 'all.business.category')  active @endif ">All Business Category</a></li>
 
-                <li class="nav-item"><a href="/menu/public/product/category/all" class="nav-link">All Products Category </a></li>
+                <li class="nav-item"><a href="{{ route('all.product.category')}}" class="nav-link @if(\Route::current()->getName()== 'all.product.category')  active @endif">All Products Category </a></li>
 
             </ul>
 
@@ -98,7 +98,7 @@
 
 
 
-            <a href="#" class="sl-menu-link">
+            <a href="#" class="sl-menu-link @if(\Route::current()->getName()== 'approved.business' || \Route::current()->getName()== 'new.business')  active show-sub  @endif ">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
                     <span class="menu-item-label">Business</span>
@@ -109,9 +109,9 @@
 
 
 
-                                <li class="nav-item"><a href="/menu/public/business/approved" class="nav-link">Approved Business</a></li>
+                                <li class="nav-item"><a href="{{ route('approved.business')}}" class="nav-link @if(\Route::current()->getName()== 'approved.business')  active @endif">Approved Business</a></li>
 
-                                <li class="nav-item"><a href="/menu/public/pending/business" class="nav-link">Pending Business </a></li>
+                                <li class="nav-item"><a href="{{ route('new.business')}}" class="nav-link @if(\Route::current()->getName()== 'new.business')  active @endif">Pending Business </a></li>
 
             </ul>
 
@@ -409,28 +409,5 @@
 </body>
 
 
-
-
-<head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <!-- Styles -->
-    <script src="{{asset('js/app.js')}}" defer></script>
-    <link href="{{asset('css/app.css')}}" rel="stylesheet">
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css' rel='stylesheet' />
-</head>
-<body>
-<div >
-    @yield('content')
-</div>
-</body>
-<style>
-    .mapboxgl-popup {
-        max-width: 400px;
-        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    }
-</style>
 
 </html>
