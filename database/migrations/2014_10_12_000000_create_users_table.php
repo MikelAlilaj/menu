@@ -19,17 +19,22 @@ class CreateUsersTable extends Migration
             $table->integer('status')->nullable();
             $table->integer('type_id');
             $table->integer('category_id');
+
+            $table->integer('state_id');
+            $table->integer('city_id')->nullable();
+
             $table->string('FirstName');
             $table->string('LastName');
             $table->string('Business_Name');
             $table->string('Business_Description');
-            $table->string('Business_City');
-            $table->string('Business_State');
             $table->string('Business_NUIS');
             $table->string('Business_Web');
             $table->string('Business_Phone');
-            $table->string('Address');
-            $table->string('Location');
+
+            $table->double('latitude')->nullable();
+            $table->double('longtitude')->nullable();
+
+
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

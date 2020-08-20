@@ -16,20 +16,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+
         'status',
         'type_id',
         'category_id',
+        'state_id',
+        'city_id',
         'FirstName',
         'LastName',
         'Business_Name',
         'Business_Description',
-        'Business_City',
-        'Business_State',
         'Business_NUIS',
         'Business_Web',
         'Business_Phone',
-        'Address',
-        'Location',
+
+        'latitude',
+        'longtitude',
+
         'email', 'password',
     ];
 
@@ -65,6 +68,14 @@ class User extends Authenticatable
 
     public function productCategory(){
         return $this->hasMany('App\ProductCategory');
+    }
+
+    public function State(){
+        return $this->hasMany('App\State');
+    }
+
+    public function City(){
+        return $this->hasMany('App\City');
     }
 
 }

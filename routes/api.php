@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('store_business', 'Api\BusinessController@store')->name('store_business');
+Route::post('store_business', 'Api\BusinessController@store')->name('store_business');

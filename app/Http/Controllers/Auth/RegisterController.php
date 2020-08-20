@@ -59,17 +59,21 @@ class RegisterController extends Controller
 
             'type_id' => ['required'],
             'category_id' => ['required'],
+            'state_id' => ['required'],
+            'city_id' => ['required'],
+
+            'latitude' => ['required'],
+            'longtitude' => ['required'],
+
             'FirstName' => ['required', 'string', 'max:255'],
             'LastName' => ['required', 'string', 'max:255'],
             'Business_Name' => ['required', 'string', 'max:255'],
             'Business_Description' => ['required', 'string', 'max:255'],
-            'Business_City' => ['required', 'string', 'max:255'],
-            'Business_State' => ['required', 'string', 'max:255'],
+
             'Business_NUIS' => ['required', 'string', 'max:255'],
             'Business_Web' => ['required', 'string', 'max:255'],
             'Business_Phone' => ['required', 'string', 'max:255'],
-            'Address' => ['required', 'string', 'max:255'],
-            'Location' => ['required', 'string', 'max:255'],
+
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -90,17 +94,20 @@ class RegisterController extends Controller
             'type_id' => $data['type_id'],
             'category_id' => $data['category_id'],
 
+            'state_id' => $data['state_id'],
+            'city_id' => $data['city_id'],
+
             'FirstName' => $data['FirstName'],
             'LastName' => $data['LastName'],
             'Business_Name' => $data['Business_Name'],
             'Business_Description' => $data['Business_Description'],
-            'Business_City' => $data['Business_City'],
-            'Business_State' => $data['Business_State'],
+
             'Business_NUIS' => $data['Business_NUIS'],
             'Business_Web' => $data['Business_Web'],
             'Business_Phone' => $data['Business_Phone'],
-            'Address' => $data['Address'],
-            'Location' => $data['Location'],
+            'latitude' => $data['latitude'],
+            'longtitude' => $data['longtitude'],
+
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -112,6 +119,17 @@ class RegisterController extends Controller
         $business_category = DB::table('business_categories')->get();
         $business_types = DB::table('business_types')->get();
 
-        return view('auth.register',compact('business_category','business_types'));
+        $state = DB::table('states')->get();
+        $city=DB::table('cities')
+            ->join('states','cities.state_id','states.id')
+            ->select('cities.*','states.state_name')
+            ->get();
+
+        return view('auth.register',compact('business_category','business_types','state','city'));
+    }
+
+    public function GetSubcat($state_id){
+        $cat=DB::table('cities')->where('state_id',$state_id)->get();
+        return json_encode($cat);
     }
 }

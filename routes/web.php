@@ -65,6 +65,6 @@ Route::post('/update/business/{id}', 'ProductController@UpdateBusiness');
 Route::get('/view/business/{id}', 'ProductController@ViewBusiness');
 
 
-Route::get('/', 'MainController@index');
-Route::get('/getStates/{id}', 'MainController@getStates');
+// For Show Sub category with ajax
+Route::get('get/city/{state_id}', 'Auth\RegisterController@GetSubcat');
 
