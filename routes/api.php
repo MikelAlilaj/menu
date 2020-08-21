@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('store_business', 'Api\BusinessController@store')->name('store_business');
-Route::post('store_business', 'Api\BusinessController@store')->name('store_business');
+

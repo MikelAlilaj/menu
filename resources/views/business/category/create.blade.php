@@ -26,12 +26,12 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">Business Category Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control @error('category_name') is-invalid @enderror" type="text" name="category_name"  placeholder="Enter Business Name">
-                                    @error('category_name')
+                                    <input class="form-control  " type="text" name="category_name"  placeholder="Enter Business Name" required>
+
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+
                                     </span>
-                                    @enderror
+
                                 </div>
                             </div><!-- col-4 -->
 

@@ -25,7 +25,8 @@
                             <th class="wd-15p">Business Description</th>
                             <th class="wd-15p">Business Type</th>
                             <th class="wd-15p">Business Category</th>
-                            <th class="wd-15p">Business Web</th>
+                            <th class="wd-15p">Business Category</th>
+
 
                             <th class="wd-15p">Action</th>
 
@@ -46,10 +47,10 @@
 
 
                                 <td>
-                                    <a href="{{ URL::to('/edit/business/'.$row->id) }} " class="btn btn-sm btn-info" title="edit"><i class="fa fa-edit"></i></a>
+                                    <a href=" " class="btn btn-sm btn-info" title="edit"><i class="fa fa-edit"></i></a>
 
 
-                                    <a href="{{ URL::to('/view/business/'.$row->id) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ URL::to('view/active/business/'.$row->id) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>
 
 
                                 </td>

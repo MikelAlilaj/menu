@@ -73,7 +73,6 @@
             </a><!-- sl-menu-link -->
 
 
-
             <a href="#" class="sl-menu-link  @if(\Route::current()->getName()== 'all.business.types' || \Route::current()->getName()== 'all.business.category' || \Route::current()->getName()== 'all.product.category' )  active show-sub  @endif ">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
@@ -366,20 +365,20 @@
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 
 <script>
-        @if(Session::has('messege'))
+        @if(Session::has('message'))
     var type="{{Session::get('alert-type','info')}}"
     switch(type){
         case 'info':
-            toastr.info("{{ Session::get('messege') }}");
+            toastr.info("{{ Session::get('message') }}");
             break;
         case 'success':
-            toastr.success("{{ Session::get('messege') }}");
+            toastr.success("{{ Session::get('message') }}");
             break;
         case 'warning':
-            toastr.warning("{{ Session::get('messege') }}");
+            toastr.warning("{{ Session::get('message') }}");
             break;
         case 'error':
-            toastr.error("{{ Session::get('messege') }}");
+            toastr.error("{{ Session::get('message') }}");
             break;
     }
     @endif

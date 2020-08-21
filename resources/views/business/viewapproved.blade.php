@@ -49,18 +49,7 @@
 
 
 
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Business City: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->Business_City }}</strong>
-                            </div>
-                        </div><!-- col-4 -->
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Business State: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->Business_State }}</strong>
-                            </div>
-                        </div><!-- col-4 -->
+
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Business NUIS: <span class="tx-danger">*</span></label><br>
@@ -79,34 +68,44 @@
                                 <strong>{{ $business->Business_Phone }}</strong>
                             </div>
                         </div><!-- col-4 -->
+
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Email: <span class="tx-danger">*</span></label><br>
                                 <strong>{{ $business->email }}</strong>
                             </div>
                         </div><!-- col-4 -->
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Address: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->Address }}</strong>
-                            </div>
-                        </div><!-- col-4 -->
+
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Category: <span class="tx-danger">*</span></label><br>
                                 <strong>{{ $business->category_name }}</strong>
                             </div>
                         </div><!-- col-4 -->
+
+
+
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <label class="form-control-label">Location: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->Location }}</strong>
+                                <label class="form-control-label">Status: <span class="tx-danger">*</span></label><br>
+
+                                <strong>
+                                    @if($business->status == 0)
+                                        <span class="badge badge-warning">Pending</span>
+                                    @endif
+                                </strong>
                             </div>
                         </div><!-- col-4 -->
                     </div> <!-- col-4 -->
 
 
                 </div><!-- end row -->
+
+
+
+
+
+
 
 
 

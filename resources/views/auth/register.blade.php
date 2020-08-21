@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <head>
+        <title>How To Use TinyMCE Editor In Laravel ? - NiceSnippets.com</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha256-OFRAJNoaD8L3Br5lglV7VyLRf0itmoBzWUoM+Sji4/8=" crossorigin="anonymous"></script>
+    </head>
     <div class="row justify-content-center">
         <div class="col-md-6">
 
@@ -64,19 +70,23 @@
 
 
 
-                        <div class="form-group row">
-                            <label for="Business_Description" class="col-md-4 col-form-label text-md-right">{{ __('Business Description') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="Business_Description" type="text" class="form-control @error('Business_Description') is-invalid @enderror" name="Business_Description" value="{{ old('Business_Description') }}" required autocomplete="Business_Description" autofocus>
 
-                                @error('Business_Description')
-                                <span class="invalid-feedback" role="alert">
+
+
+
+                        <div class="form-group">
+                            <label>Business Description</label>
+                            <textarea name="Business_Description" rows="3" cols="5" class="form-control tinymce-editor @error('Business_Description') is-invalid @enderror"></textarea>
+                            @error('Business Description')
+                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            </div>
+                            @enderror
                         </div>
+
+
+
 
 
 
@@ -552,5 +562,24 @@
             async defer></script>
 
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea.tinymce-editor',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_css: '//www.tiny.cloud/css/codepen.min.css'
+        });
+    </script>
 @endsection

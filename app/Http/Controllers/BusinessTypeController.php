@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BusinessType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class BusinessTypeController extends Controller
 {
@@ -26,26 +27,39 @@ class BusinessTypeController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate(request(), [
-            'type_name' => 'required',
 
+        $validator = Validator::make($request->all(),
+            [
+                'type_name' => 'required',
+            ]);
 
-        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+        }
 
-        $data = array();
-        $data['type_name'] = $request->type_name;
-        $data['isActive'] = $request->isActive;
-        $business_types = DB::table('business_types')->insert($data);
+        $business_type = new BusinessType();
+        $business_type->type_name = $request->type_name;
+        $business_type->isActive = $request->isActive;
+
         $notification = array(
-            'messege' => 'Business Type Inserted Successfully',
+            'message' => 'Business Type Inserted Successfully',
             'alert-type' => 'success'
         );
-        return Redirect()->back()->with($notification);
+
+        if ($business_type->save())
+        {
+            return Redirect()->back()->with($notification);
+        }
+        else
+        {
+            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+        }
     }
 
     public function EditBusinessType($id)
     {
-        $business_type = DB::table('business_types')->where('id', $id)->first();
+
+        $business_type = BusinessType::where('id', $id)->first();
         return view('business.type.edit', compact('business_type'));
 
     }
@@ -53,27 +67,32 @@ class BusinessTypeController extends Controller
     public function UpdateBusinessType(Request $request, $id)
     {
 
-        $data = array();
-        $data['type_name'] = $request->type_name;
-        $data['isActive'] = $request->isActive;
+        $validator = Validator::make($request->all(),
+            [
+                'type_name' => 'required',
+            ]);
 
-        $business_type = DB::table('business_types')->where('id', $id)->update($data);
-
-        if ($business_type) {
-            $notification=array(
-                'messege'=>'Business Type Successfully Updated',
-                'alert-type'=>'success'
-            );
-            return Redirect()->route('all.business.types')->with($notification);
-        }else{
-            $notification=array(
-                'messege'=>'Nothing TO Update',
-                'alert-type'=>'success'
-            );
-            return Redirect()->route('all.business.types')->with($notification);
-
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
         }
 
+        $business_type = BusinessType::find($id);;
+        $business_type->type_name = $request->type_name;
+        $business_type->isActive = $request->isActive;
 
+        $notification = array(
+            'message' => 'Business Type has been updated successfully',
+            'alert-type' => 'success'
+        );
+
+        if ($business_type->save())
+        {
+            return Redirect()->route('all.business.types')->with($notification);
+        }
+        else
+        {
+            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+        }
     }
+
 }

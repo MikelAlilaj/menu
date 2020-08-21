@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,8 +11,7 @@ class BusinessController extends Controller
 
     public function index()
     {
-        $business = DB::table('users')
-            ->join('business_categories','users.category_id','business_categories.id')
+        $business = User::join('business_categories','users.category_id','business_categories.id')
             ->join('business_types','users.type_id','business_types.id')
             ->select('users.*','business_categories.category_name','business_types.type_name')
             ->where('status',1)
@@ -21,11 +21,13 @@ class BusinessController extends Controller
     }
 
 
-    public function ViewApprovedBusiness($id)
+
+
+
+    public function ViewActiveBusiness($id)
     {
 
-        $business = DB::table('users')
-            ->join('business_categories','users.category_id','business_categories.id')
+        $business = User::join('business_categories','users.category_id','business_categories.id')
             ->join('business_types','users.type_id','business_types.id')
             ->select('users.*','business_categories.category_name','business_types.type_name')
             ->where('users.id',$id)
@@ -39,8 +41,7 @@ class BusinessController extends Controller
 
     public function NewBusiness(){
 
-        $business = DB::table('users')
-            ->join('business_categories','users.category_id','business_categories.id')
+        $business = User::join('business_categories','users.category_id','business_categories.id')
             ->join('business_types','users.type_id','business_types.id')
             ->select('users.*','business_categories.category_name','business_types.type_name')
             ->where('status',0)
@@ -52,8 +53,7 @@ class BusinessController extends Controller
     public function ViewNewBusiness($id)
     {
 
-        $business = DB::table('users')
-            ->join('business_categories','users.category_id','business_categories.id')
+        $business = User::join('business_categories','users.category_id','business_categories.id')
             ->join('business_types','users.type_id','business_types.id')
             ->select('users.*','business_categories.category_name','business_types.type_name')
             ->where('users.id',$id)
@@ -63,18 +63,18 @@ class BusinessController extends Controller
     }
 
     public function BusinessAccept($id){
-        DB::table('users')->where('id',$id)->update(['status'=>1]);
+        User::where('id',$id)->update(['status'=>1]);
         $notification=array(
-            'messege'=>'Business Accept Done',
+            'message'=>'Business Accept Done',
             'alert-type'=>'success'
         );
         return Redirect()->route('new.business')->with($notification);
     }
 
     public function BusinessCancel($id){
-        DB::table('users')->where('id',$id)->update(['status'=>2]);
+        User::where('id',$id)->update(['status'=>2]);
         $notification=array(
-            'messege'=>'Business Cancel',
+            'message'=>'Business Cancel',
             'alert-type'=>'success'
         );
         return Redirect()->route('new.business')->with($notification);

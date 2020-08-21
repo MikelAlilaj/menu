@@ -18,8 +18,10 @@ class ProductCategoryController extends Controller
 
     public function index()
     {
+        if(Auth::user()->status == 3){
         $productsCategory = ProductCategory::all();
         return view('product.category.index', compact('productsCategory'));
+        }
     }
 
     public function create()
@@ -59,7 +61,7 @@ class ProductCategoryController extends Controller
             }
         }
         $notification = array(
-            'messege' => 'Product Category Inserted Successfully',
+            'message' => 'Product Category Inserted Successfully',
             'alert-type' => 'success'
         );
         return Redirect()->back()->with($notification);
@@ -103,13 +105,13 @@ class ProductCategoryController extends Controller
 
         if ($productCategory) {
             $notification = array(
-                'messege' => 'Business Category Successfully Updated',
+                'message' => 'Business Category Successfully Updated',
                 'alert-type' => 'success'
             );
             return Redirect()->route('all.product.category')->with($notification);
         } else {
             $notification = array(
-                'messege' => 'Nothing TO Update',
+                'message' => 'Nothing TO Update',
                 'alert-type' => 'success'
             );
             return Redirect()->route('all.product.category')->with($notification);

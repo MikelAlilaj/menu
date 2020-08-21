@@ -15,37 +15,35 @@ class BusinessController extends Controller
     {
 
 
-
-  return User::create([
-
-
-      'status' => 0,
-      'type_id' => $data['type_id'],
-      'category_id' => $data['category_id'],
-
-      'state_id' => $data['state_id'],
-      'city_id' => $data['city_id'],
-
-      'FirstName' => $data['FirstName'],
-      'LastName' => $data['LastName'],
-      'Business_Name' => $data['Business_Name'],
-      'Business_Description' => $data['Business_Description'],
-
-      'Business_NUIS' => $data['Business_NUIS'],
-      'Business_Web' => $data['Business_Web'],
-      'Business_Phone' => $data['Business_Phone'],
-      'Address' => $data['Address'],
-      'Location' => $data['Location'],
-      'email' => $data['email'],
-      'password' => Hash::make($data['password']),
+        return User::create([
 
 
+            'status' => 0,
+            'type_id' => $request['type_id'],
+            'category_id' => $request['category_id'],
 
-  ]);
+            'state_id' => $request['state_id'],
+            'city_id' => $request['city_id'],
+
+            'FirstName' => $request['FirstName'],
+            'LastName' => $request['LastName'],
+            'Business_Name' => $request['Business_Name'],
+            'Business_Description' => $request['Business_Description'],
+
+            'Business_NUIS' => $request['Business_NUIS'],
+            'Business_Web' => $request['Business_Web'],
+            'Business_Phone' => $request['Business_Phone'],
+            'latitude' => $request['latitude'],
+            'longtitude' => $request['longtitude'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+
+
+        ]);
 
 
         return response()->json([
-            'error'=>false,
+            'error' => false,
             'message' => 'Business Inserted Successfully',
         ]);
 
@@ -53,4 +51,4 @@ class BusinessController extends Controller
     }
 
 
-
+}

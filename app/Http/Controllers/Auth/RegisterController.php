@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\BusinessCategory;
 use App\BusinessType;
+use App\City;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\State;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
@@ -116,12 +118,11 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
-        $business_category = DB::table('business_categories')->get();
-        $business_types = DB::table('business_types')->get();
+        $business_category = BusinessCategory::all();
+        $business_types  = BusinessType::all();
 
-        $state = DB::table('states')->get();
-        $city=DB::table('cities')
-            ->join('states','cities.state_id','states.id')
+        $state = State::all();
+        $city=City::join('states','cities.state_id','states.id')
             ->select('cities.*','states.state_name')
             ->get();
 
@@ -129,7 +130,7 @@ class RegisterController extends Controller
     }
 
     public function GetSubcat($state_id){
-        $cat=DB::table('cities')->where('state_id',$state_id)->get();
+        $cat=City::where('state_id',$state_id)->get();
         return json_encode($cat);
     }
 }
