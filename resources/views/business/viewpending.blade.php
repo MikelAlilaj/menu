@@ -102,9 +102,9 @@
                 </div><!-- end row -->
 
                 @if($business->status == 0)
-                    <a href="{{ url('business/accept/'.$business->id) }}" class="btn btn-info">Business Accept </a>
+                    <a href="{{ route('business.accept',$business->id) }}" class="btn btn-info">Business Accept </a>
                     <br>
-                    <a href="{{ url('business/cancel/'.$business->id) }}" class="btn btn-danger">Business Cancel </a>
+                    <a href="{{route('business.cancel',$business->id) }}" class="btn btn-danger">Business Cancel </a>
                 @endif
 
 

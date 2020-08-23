@@ -72,6 +72,7 @@
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
 
+            @if(Auth::user()->role == 'admin')
 
             <a href="#" class="sl-menu-link  @if(\Route::current()->getName()== 'all.business.types' || \Route::current()->getName()== 'all.business.category' || \Route::current()->getName()== 'all.product.category' )  active show-sub  @endif ">
                 <div class="sl-menu-item">
@@ -116,9 +117,9 @@
 
 
 
+@endif
 
-
-            <a href="#" class="sl-menu-link">
+            <a href="#" class="sl-menu-link @if(\Route::current()->getName()== 'all.products')  active show-sub  @endif">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
                     <span class="menu-item-label">Products</span>
@@ -126,7 +127,7 @@
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
             <ul class="sl-menu-sub nav flex-column">
-{{--                                <li class="nav-item"><a href="/menu/public/product/category/all" class="nav-link">All Products Category </a></li>--}}
+                <li class="nav-item "><a href="{{ route('all.products')}}" class=" nav-link @if(\Route::current()->getName()== 'all.products')  active @endif">All Products</a></li>
             </ul>
 
 

@@ -18,10 +18,10 @@ class ProductCategoryController extends Controller
 
     public function index()
     {
-        if(Auth::user()->status == 3){
-        $productsCategory = ProductCategory::all();
-        return view('product.category.index', compact('productsCategory'));
-        }
+
+        $productCategory = ProductCategory::all();
+        return view('product.category.index', compact('productCategory'));
+
     }
 
     public function create()

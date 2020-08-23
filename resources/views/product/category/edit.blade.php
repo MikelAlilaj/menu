@@ -26,7 +26,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">Product Category Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="name" value="{{ $productCategory->name }}" >
+                                    <input class="form-control" type="text" name="category_name" value="{{ $productCategory->category_name }}" >
                                 </div>
                             </div><!-- col-4 -->
 

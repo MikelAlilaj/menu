@@ -29,9 +29,9 @@
                         </thead>
                         <tbody>
 
-                        @foreach($productsCategory as $row)
+                        @foreach($productCategory as $row)
                             <tr>
-                                <td>{{ $row->name }}</td>
+                                <td>{{ $row->category_name }}</td>
                                 <td>{{ $row->description }}</td>
 
                                 <td>
