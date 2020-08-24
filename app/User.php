@@ -70,6 +70,10 @@ class User extends Authenticatable
         return $this->hasMany('App\ProductCategory');
     }
 
+    public function Product(){
+        return $this->hasMany('App\Product');
+    }
+
     public function State(){
         return $this->hasMany('App\State');
     }

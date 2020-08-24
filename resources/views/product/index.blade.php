@@ -1,5 +1,7 @@
 @extends('home')
 @section('content')
+
+
     <div class="sl-mainpanel">
 
 
@@ -22,7 +24,7 @@
                         <tr>
 
                             <th class="wd-15p">Business Name</th>
-                            <th class="wd-15p">Business Category</th>
+
 
 
 
@@ -33,8 +35,8 @@
                         <tbody>
                         @foreach($product as $row)
                             <tr>
-                                <td>{{ $row->name }}</td>
-                                <td>{{ $row->category_name }}</td>
+                                <td>{{ $row->product_name }}</td>
+
 
 
 

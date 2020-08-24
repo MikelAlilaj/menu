@@ -26,7 +26,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">Product Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control  " type="text" name="name"  placeholder="Enter Product Name" required>
+                                    <input class="form-control  " type="text" name="product_name"  placeholder="Enter Product Name" required>
 
                                     <span class="invalid-feedback" role="alert">
 
@@ -44,7 +44,7 @@
                                 <select class="form-control select2" data-placeholder="Choose country" name="category_id" required>
                                     <option label="Choose Category"></option>
                                     @foreach($productCategory as $row)
-                                        <option value="{{ $row->id }}">{{ $row->category_name }}</option>
+                                        <option value="{{ $row->id }}">{{ $row->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

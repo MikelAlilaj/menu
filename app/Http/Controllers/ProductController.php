@@ -13,14 +13,17 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::join('product_categories','products.category_id','product_categories.id')
-            ->select('products.*','product_categories.category_name')
-            ->get();
-        return view('product.index', compact('product'));
+
+            $product = Product::where('user_id',Auth::id())
+                ->orderBy('id','DESC')
+                ->get();
+
+            return view('product.index', compact('product'));
 
     }
 
     public function create(){
+
 
         $productCategory = ProductCategory::all();
 
@@ -32,7 +35,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(),
             [
                 'category_id' => 'required',
-                'name' => 'required',
+                'product_name' => 'required',
             ]);
 
         if ($validator->fails()) {
@@ -41,10 +44,11 @@ class ProductController extends Controller
 
         $product=new Product();
         $product->category_id = $request->category_id;
-        $product->name = $request->name;
+        $product->product_name = $request->product_name;
+        $product->user_id = Auth::user()->id;
 
         $notification = array(
-            'message' => 'Business Category Inserted Successfully',
+            'message' => 'Product Inserted Successfully',
             'alert-type' => 'success'
         );
 
@@ -61,13 +65,20 @@ class ProductController extends Controller
     public function EditProduct($id)
     {
         $product = Product::where('id', $id)->first();
-        return view('product.edit', compact('product'));
+        if ($product->user_id == Auth::id()) {
+            return view('product.edit', compact('product'));
+        } else
+        {
+            return redirect()->back()->with('error', sprintf('Kerkesa juaj nuk mund te procesohet.'));
+        }
+
+
     }
-    public function update(Request $request, $id)
+    public function UpdateProduct(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'category_id' => 'required',
-            'name' => 'required',
+            'product_name' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -78,11 +89,11 @@ class ProductController extends Controller
         $product = Product::find($id);
 
         $product->category_id = $request->category_id;
-        $product->name = $request->name;
+        $product->product_name = $request->product_name;
 
 
         $notification = array(
-            'message' => 'Business Category has been updated successfully',
+            'message' => 'Product has been updated successfully',
             'alert-type' => 'success'
         );
 

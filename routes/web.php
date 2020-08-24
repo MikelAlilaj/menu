@@ -21,13 +21,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
 
 //Route::prefix('admins')->group(function () {
 
 
 Route::group(['prefix'=>'admin','middleware'=>['auth'=>'admin']],function(){
+    Route::get('/home', 'HomeController@index')->name('home');
     //Business Type
     Route::get('/business/types/all','BusinessTypeController@index')->name('all.business.types');
     Route::get('/business/type/add', 'BusinessTypeController@create')->name('add.business.type');

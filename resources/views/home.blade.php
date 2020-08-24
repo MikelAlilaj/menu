@@ -62,7 +62,7 @@
     <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i>myMenu</a></div>
     <div class="sl-sideleft">
 
-
+        @if(Auth::user()->role == 'admin')
 
         <div class="sl-sideleft-menu">
             <a href="{{route('home')}}" class="sl-menu-link @if(\Route::current()->getName()== 'home') active @endif">
@@ -72,7 +72,7 @@
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
 
-            @if(Auth::user()->role == 'admin')
+
 
             <a href="#" class="sl-menu-link  @if(\Route::current()->getName()== 'all.business.types' || \Route::current()->getName()== 'all.business.category' || \Route::current()->getName()== 'all.product.category' )  active show-sub  @endif ">
                 <div class="sl-menu-item">

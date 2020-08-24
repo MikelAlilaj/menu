@@ -13,10 +13,10 @@
         <div class="sl-pagebody">
 
             <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Update Business Category
-                    <a href="{{ route('all.products')}}" class="btn btn-success btn-sm pull-right"> All Business Category</a>
+                <h6 class="card-body-title">Update Product
+                    <a href="{{ route('all.products')}}" class="btn btn-success btn-sm pull-right"> All Products</a>
                 </h6>
-                <p class="mg-b-20 mg-sm-b-30">Update Business From</p>
+                <p class="mg-b-20 mg-sm-b-30">Update Product From</p>
                 <form method="post" action="{{ route('update.product', $product->id)}}" enctype="multipart/form-data">
                     @csrf
 
@@ -24,8 +24,8 @@
                         <div class="row mg-b-25">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">Business Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="name" value="{{ $product->name }}" >
+                                    <label class="form-control-label"> Name: <span class="tx-danger">*</span></label>
+                                    <input class="form-control" type="text" name="product_name" value="{{ $product->product_name }}" >
                                 </div>
                             </div><!-- col-4 -->
 
@@ -34,14 +34,14 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mg-b-10-force">
-                                <label class="form-control-label">Business Type: <span class="tx-danger">*</span></label>
+                                <label class="form-control-label">Category: <span class="tx-danger">*</span></label>
                                 <select class="form-control select2" data-placeholder="Choose Business Type" name="category_id">
                                     <option label="Choose Business Type"></option>
 
                                     @foreach($productCategory as $br)
 
                                             <option value="{{ $br->id }}" <?php if ($br->id == $product->category_id) {
-                                                echo "selected"; } ?> >{{ $br->category_name }}</option>
+                                                echo "selected"; } ?> >{{ $br->name }}</option>
 
                                     @endforeach
                                 </select>
