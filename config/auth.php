@@ -42,10 +42,16 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
-            'hash' => false,
         ],
+
+        'customers_api' => [
+            'driver' => 'passport',
+            'provider' => 'customer',
+        ],
+
+
     ],
 
     /*
@@ -71,12 +77,16 @@ return [
             'model' => App\User::class,
         ],
 
+        'carrier' => [
+            'driver' => 'eloquent',
+            'model' => App\Customer::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords

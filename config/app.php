@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-        FarhanWazir\GoogleMaps\GMapsServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

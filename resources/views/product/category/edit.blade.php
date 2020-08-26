@@ -16,7 +16,7 @@
                 </h6>
 
                 <p class="mg-b-20 mg-sm-b-30">Update Business From</p>
-                <form method="post" action="{{ url('/update/product/category/'.$productCategory->id) }} " enctype="multipart/form-data">
+                <form method="post" action="{{route('update.product.category',$productCategory->id) }} " enctype="multipart/form-data">
                     @csrf
 
 
@@ -26,7 +26,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">Product Category Name: <span class="tx-danger">*</span></label>
-                                    <input class="form-control" type="text" name="category_name" value="{{ $productCategory->category_name }}" >
+                                    <input class="form-control" type="text" name="name" value="{{ $productCategory->name }}" >
                                 </div>
                             </div><!-- col-4 -->
 

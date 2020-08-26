@@ -28,6 +28,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+
+        return view('home');
+    }
+
+    public function reports()
+    {
         $users = User::count();
         $records = User::select(DB::raw('*'))
             ->whereRaw('Date(created_at) = CURDATE()')->count();
@@ -50,6 +57,7 @@ class HomeController extends Controller
 
         return view('reports',compact('users','records','today_users','week_users','month_users','users30'));
     }
+
 
     public function Logout()
     {

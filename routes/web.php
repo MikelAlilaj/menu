@@ -27,21 +27,22 @@ Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
 
 //Route::prefix('admins')->group(function () {
 
-
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/reports', 'HomeController@reports')->name('home');
 Route::group(['prefix'=>'admin','middleware'=>['auth'=>'admin']],function(){
-    Route::get('/home', 'HomeController@index')->name('home');
+
     //Business Type
     Route::get('/business/types/all','BusinessTypeController@index')->name('all.business.types');
     Route::get('/business/type/add', 'BusinessTypeController@create')->name('add.business.type');
     Route::post('/business/type/store', 'BusinessTypeController@store')->name('store.business.type');
-    Route::get('/edit/business/type/{id}', 'BusinessTypeController@EditBusinessType');
-    Route::post('/update/business/type/{id}', 'BusinessTypeController@UpdateBusinessType');
+    Route::get('/edit/business/type/{id}', 'BusinessTypeController@EditBusinessType')->name('edit.business.type');
+    Route::post('/update/business/type/{id}', 'BusinessTypeController@UpdateBusinessType')->name('update.business.type');
 
     //Business Category
     Route::get('/business/category/all','BusinessCategoryController@index')->name('all.business.category');
     Route::get('/business/category/add', 'BusinessCategoryController@create')->name('add.business.category');
     Route::post('/business/category/store', 'BusinessCategoryController@store')->name('store.business.category');
-    Route::get('/edit/business/category/{id}', 'BusinessCategoryController@EditBusinessCategory');
+    Route::get('/edit/business/category/{id}', 'BusinessCategoryController@EditBusinessCategory')->name('edit.business.category');
     Route::post('/update/business/category/{id}', 'BusinessCategoryController@UpdateBusinessCategory')->name('update.business.category');
 
 //Business
@@ -59,8 +60,8 @@ Route::group(['prefix'=>'admin','middleware'=>['auth'=>'admin']],function(){
     Route::get('/product/category/all','ProductCategoryController@index')->name('all.product.category');
     Route::get('/product/category/add', 'ProductCategoryController@create')->name('add.product.category');
     Route::post('/product/category/store', 'ProductCategoryController@store')->name('store.product.category');
-    Route::get('/edit/product/category/{id}', 'ProductCategoryController@EditProductCategory');
-    Route::post('/update/product/category/{id}', 'ProductCategoryController@UpdateProductCategory');
+    Route::get('/edit/product/category/{id}', 'ProductCategoryController@EditProductCategory')->name('edit.product.category');
+    Route::post('/update/product/category/{id}', 'ProductCategoryController@UpdateProductCategory')->name('update.product.category');
 
 });
 

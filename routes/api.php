@@ -19,4 +19,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('store_business', 'Api\BusinessController@store')->name('store_business');
+Route::post('login_business', 'Api\BusinessController@login')->name('login_business');
+Route::post('update_business/{id}', 'Api\BusinessController@updatebyid')->name('update_business');
+Route::get('watch_business', 'Api\BusinessController@watched')->name('watched');
+Route::get('show/{id}', 'Api\BusinessController@show')->name('show');
+
+Route::get('product_list','Api\ProductController@listByBusinessId');
+Route::post('store_product', 'Api\ProductController@store')->name('store_product');
+Route::post('store_product', 'Api\ProductController@store')->name('store_product');
+Route::get('watch_product', 'Api\ProductController@watched')->name('watched');
+
+Route::middleware('auth:api')->get('/all','Api\BusinessController@index');
+
 

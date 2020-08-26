@@ -47,7 +47,7 @@
 
 
                                 <td>
-                                    <a href="{{ URL::to('/edit/product/category/'.$row->id) }} " class="btn btn-sm btn-info" title="edit"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('edit.product.category',$row->id) }} " class="btn btn-sm btn-info" title="edit"><i class="fa fa-edit"></i></a>
 
 
 

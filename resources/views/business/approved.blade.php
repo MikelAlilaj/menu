@@ -20,12 +20,12 @@
                     <table id="datatable1" class="table display responsive nowrap">
                         <thead>
                         <tr>
-                            <th class="wd-15p">FirstName</th>
+                            <th class="wd-15p">First Name</th>
                             <th class="wd-15p">Business Name</th>
-                            <th class="wd-15p">Business Description</th>
                             <th class="wd-15p">Business Type</th>
+
                             <th class="wd-15p">Business Category</th>
-                            <th class="wd-15p">Business Category</th>
+
 
 
                             <th class="wd-15p">Action</th>
@@ -37,17 +37,16 @@
                             <tr>
                                 <td>{{ $row->FirstName }}</td>
                                 <td>{{ $row->Business_Name }}</td>
-                                <td>{{ $row->Business_Description }}</td>
                                 <td>{{ $row->type_name }}</td>
                                 <td>{{ $row->category_name }}</td>
 
-                                <td>{{ $row->Business_Phone }}</td>
+
 
 
 
 
                                 <td>
-                                    
+
 
 
                                     <a href="{{ route('ViewActive.business',$row->id) }}" class="btn btn-sm btn-warning" title="Show"><i class="fa fa-eye"></i></a>

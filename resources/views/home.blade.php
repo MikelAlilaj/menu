@@ -62,6 +62,7 @@
     <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i>myMenu</a></div>
     <div class="sl-sideleft">
 
+
         @if(Auth::user()->role == 'admin')
 
         <div class="sl-sideleft-menu">

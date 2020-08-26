@@ -15,7 +15,7 @@
                     <a href="{{ route('all.business.category')}}" class="btn btn-success btn-sm pull-right"> All Business Category</a>
                 </h6>
                 <p class="mg-b-20 mg-sm-b-30">Update Business From</p>
-                <form method="post" action="{{ url('/update/business/category/'.$business_category->id) }} " enctype="multipart/form-data">
+                <form method="post" action="{{route('update.business.category',$business_category->id) }} " enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-layout">
