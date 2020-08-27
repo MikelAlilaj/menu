@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProductCategory;
 use App\User;
 use App\WatchBusiness;
 use App\WatchProduct;
@@ -14,7 +15,17 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function listByBusinessId()
+
+    public function categorylist()
+    {
+
+
+        $productCategory = ProductCategory::all();
+
+
+        return response()->json($productCategory);
+    }
+    public function productlistByBusinessId()
     {
 
 
@@ -75,4 +86,7 @@ class ProductController extends Controller
 
         return response()->json($watch);
     }
+
+
+
 }

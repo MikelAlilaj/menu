@@ -24,6 +24,8 @@ Auth::routes();
 
 
 Route::get('/user/logout', 'HomeController@logout')->name('user.logout');
+Route::get('/password/change', 'HomeController@changePassword')->name('password.change');
+Route::post('/password/update', 'HomeController@updatePassword')->name('password.update');
 
 //Route::prefix('admins')->group(function () {
 
