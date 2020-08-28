@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductCategory;
 use App\User;
-use App\WatchBusiness;
-use App\WatchProduct;
+use App\dddBusiness;
+use App\sdddd;
+use App\ViewProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,18 +20,14 @@ class ProductController extends Controller
     public function categorylist()
     {
 
-
         $productCategory = ProductCategory::all();
-
-
         return response()->json($productCategory);
     }
+
     public function productlistByBusinessId()
     {
 
-
         $product = Product::where('user_id',Auth::guard('api')->user()->id)
-//            $product = Product::where('user_id',Auth::id())
             ->orderBy('id','DESC')
             ->get();
 
@@ -71,22 +68,15 @@ class ProductController extends Controller
         }
     }
 
-    public function watched(){
+    public function MostViewedProducts(){
 
-//        $watch = WatchProduct::join('users','watch_businesses.watch_id','users.id')
-//            ->select('watch_businesses.*','users.FirstName')
-//            ->get();
-
-
-        $watch = WatchProduct::select(DB::raw('count(*) as user_count, product_id'))
+        $ViewProduct = ViewProduct::select(DB::raw('count(*) as user_count, product_id'))
             ->groupBy('product_id')
             ->orderBy('user_count', 'desc')
             ->get();
-//        $users = User::whereHas("watch_products")->withCount(['watch_products'])->orderBy('watch_products_count', 'DESC')->get();
 
-        return response()->json($watch);
+
+        return response()->json($ViewProduct);
     }
-
-
 
 }

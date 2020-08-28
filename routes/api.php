@@ -17,21 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:api')->get('/all','Api\BusinessController@index');
 
 Route::post('store_business', 'Api\BusinessController@store')->name('store_business');
 Route::post('login_business', 'Api\BusinessController@login')->name('login_business');
 Route::post('update_business/{id}', 'Api\BusinessController@updatebyid')->name('update_business');
-Route::get('watch_business', 'Api\BusinessController@watched')->name('watched');
-Route::get('show/{id}', 'Api\BusinessController@show')->name('show');
+Route::get('who_has_viewed', 'Api\BusinessController@WhoHasViewed')->name('who_has_viewed');
+Route::get('show_business/{id}', 'Api\BusinessController@ShowBusiness')->name('show_business');
 
 Route::get('category_list','Api\ProductController@categorylist');
 
-Route::get('product_list','Api\ProductController@productlistByBusinessId');
+Route::get('product_list','Api\ProductController@productlistByBusinessId')->name('product_list');
 Route::post('store_product', 'Api\ProductController@store')->name('store_product');
-Route::get('watch_product', 'Api\ProductController@watched')->name('watched');
+Route::get('most_viewed_products', 'Api\ProductController@MostViewedProducts')->name('most_viewed_products');
 
-Route::get('watch_product', 'Api\ProductController@watched')->name('watched');
 
-Route::middleware('auth:api')->get('/all','Api\BusinessController@index');
+
+
 
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use App\WatchBusiness;
+use App\dddBusiness;
+use App\ViewBusiness;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class BusinessController extends Controller
     {
 
 
-        return User::create([
+         User::create([
 
 
             'status' => 0,
@@ -63,7 +64,12 @@ class BusinessController extends Controller
             return response(['invalid login credentials.']);
     }
         $accessToke = Auth::user()->createToken('authToken')->accessToken;
-        return response(['user' => Auth::user(), 'access_token' => $accessToke]);
+//        return response(['user' => Auth::user(), 'access_token' => $accessToke]);
+
+        return response()->json([
+            'error' => false,
+            'message' => 'You are successfully logged in','access_token' => $accessToke
+        ]);
     }
 
     public function updatebyid(Request $request,$id){
@@ -79,22 +85,22 @@ class BusinessController extends Controller
         $user->save();
         return response()->json([
             'error' => false,
-            'message' => 'Business Inserted Successfully',
+            'message' => 'Has been updated',
         ]);
     }
 
-    public function watched(){
+    public function WhoHasViewed(){
 
-        $watch = WatchBusiness::join('users','watch_businesses.watch_id','users.id')
-            ->select('watch_businesses.*','users.FirstName')
+        $ViewBusiness = ViewBusiness::join('users','view_businesses.view_by_id','users.id')
+            ->select('view_businesses.*','users.FirstName')
             ->get();
 
-        return response()->json($watch);
+        return response()->json($ViewBusiness);
 
 //        $users = User::whereHas("watch_businesses")->withCount(['watch_businesses'])->orderBy('watch_businesses_count', 'DESC')->get();
     }
 
-    public function show($id){
+    public function ShowBusiness($id){
 
 
         $user=User::find($id);

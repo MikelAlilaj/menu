@@ -78,7 +78,7 @@ Route::get('/product/add', 'ProductController@create')->name('add.product');
 Route::post('/product/store', 'ProductController@store')->name('store.product');
 Route::get('/edit/product/{id}', 'ProductController@EditProduct')->name('edit.product');;
 Route::post('/update/product/{id}', 'ProductController@UpdateProduct')->name('update.product');
-Route::get('/view/product/{id}', 'ProductController@ViewProduct');
+Route::get('/view/product/{id}', 'ProductController@sdddd');
 
 
 // For Show Sub category with ajax

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WatchBusiness extends Model
+class ViewProduct extends Model
 {
     //
 }

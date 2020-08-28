@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWatchBusinessesTable extends Migration
+class CreateViewBusinessesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateWatchBusinessesTable extends Migration
      */
     public function up()
     {
-        Schema::create('watch_businesses', function (Blueprint $table) {
+        Schema::create('view_businesses', function (Blueprint $table) {
             $table->id();
             $table->string('user_id')->nullable();
-            $table->string('watch_id');
+            $table->string('view_by_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateWatchBusinessesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('watch_businesses');
+        Schema::dropIfExists('view_businesses');
     }
 }
