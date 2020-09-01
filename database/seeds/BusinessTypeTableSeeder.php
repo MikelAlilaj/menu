@@ -12,7 +12,7 @@ class BusinessTypeTableSeeder extends Seeder
     public function run()
     {
         $faker =Faker::create();
-        foreach (range(1,1000)as $index) {
+        foreach (range(1,100)as $index) {
             \App\BusinessType::insert([
                 'type_name' => $faker->sentence(3),
 

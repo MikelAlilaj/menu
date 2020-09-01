@@ -82,6 +82,7 @@ class User extends Authenticatable
     public function City(){
         return $this->hasMany('App\City');
     }
+
     public function isRole(){
         return $this->role;
     }

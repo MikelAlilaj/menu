@@ -11,10 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProductCategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function index()
     {
@@ -71,7 +68,7 @@ class ProductCategoryController extends Controller
     public function EditProductCategory($id)
     {
 
-        $productCategory = DB::table('product_categories')->where('id', $id)->first();
+        $productCategory = ProductCategory::findorfail($id);
 
         return view('product.category.edit', compact('productCategory'));
 
@@ -110,11 +107,11 @@ class ProductCategoryController extends Controller
             );
             return Redirect()->route('all.product.category')->with($notification);
         } else {
-            $notification = array(
+            $notification1 = array(
                 'message' => 'Nothing TO Update',
                 'alert-type' => 'success'
             );
-            return Redirect()->route('all.product.category')->with($notification);
+            return Redirect()->route('all.product.category')->with($notification1);
 
         }
 

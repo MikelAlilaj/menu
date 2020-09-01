@@ -7,13 +7,13 @@
 
         <div class="sl-pagebody">
             <div class="sl-page-title">
-                <h5>Business List</h5>
+                <h5>Product List</h5>
 
             </div><!-- sl-page-title -->
 
             <div class="card pd-20 pd-sm-40">
                 <br>
-                <h6 class="card-body-title">Business List
+                <h6 class="card-body-title">Product List
                     <a href="{{ route('add.product')}}" class="btn btn-sm btn-warning" style="float: right;">Add New</a>
                 </h6>
 
@@ -23,7 +23,7 @@
                         <thead>
                         <tr>
 
-                            <th class="wd-15p">Business Name</th>
+                            <th class="wd-15p">Product Name</th>
 
 
 

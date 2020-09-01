@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class BusinessCategoryController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function index()
     {
@@ -37,32 +34,43 @@ class BusinessCategoryController extends Controller
                 'category_name' => 'required',
             ]);
 
+        $notification = array(
+            'message' => 'Please fill all the fields',
+            'alert-type' => 'error'
+        );
+
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+            return Redirect()->back()->with($notification);
         }
+
 
         $business_category=new BusinessCategory();
         $business_category->category_name = $request->category_name;
         $business_category->isActive = $request->isActive;
 
-        $notification = array(
+        $notification1 = array(
             'message' => 'Business Category Inserted Successfully',
             'alert-type' => 'success'
         );
 
+        $notification2 = array(
+            'message' => 'Error. Please try again',
+            'alert-type' => 'error'
+        );
+
         if ($business_category->save())
         {
-            return Redirect()->back()->with($notification);
+            return Redirect()->back()->with($notification1);
         }
         else
         {
-            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+            return Redirect()->back()->with($notification2);
         }
     }
 
     public function EditBusinessCategory($id)
     {
-        $business_category = BusinessCategory::where('id', $id)->first();
+        $business_category = BusinessCategory::findOrFail($id);
         return view('business.category.edit', compact('business_category'));
     }
 
@@ -85,6 +93,10 @@ class BusinessCategoryController extends Controller
             'message' => 'Business Category has been updated successfully',
             'alert-type' => 'success'
         );
+        $notification1 = array(
+            'message' => 'Error. Please try again',
+            'alert-type' => 'error'
+        );
 
         if ($business_category->save())
         {
@@ -92,7 +104,7 @@ class BusinessCategoryController extends Controller
         }
         else
         {
-            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+            return redirect()->back()->with($notification1);
         }
     }
 

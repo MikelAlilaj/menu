@@ -37,8 +37,8 @@
                             <tr>
                                 <td>{{ $row->FirstName }}</td>
                                 <td>{{ $row->Business_Name }}</td>
-                                <td>{{ $row->type_name }}</td>
-                                <td>{{ $row->category_name }}</td>
+                                <td>{{ \App\BusinessType::find($row->type_id)->type_name }} </td>
+                                <td>{{ \App\BusinessCategory::find($row->category_id)->category_name }}</td>
                                 <td>
                                     @if($row->status == 0)
                                         <span class="badge badge-warning">Pending</span>

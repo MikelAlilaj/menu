@@ -43,7 +43,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Business Type: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->type_name }}</strong>
+                                <strong>{{\App\BusinessType::find($business->type_id)->type_name }}</strong>
                             </div>
                         </div><!-- col-4 -->
 
@@ -53,9 +53,14 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Business Category: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->category_name }}</strong>
+                                <strong>{{\App\BusinessCategory::find($business->category_id)->category_name }}</strong>
                             </div>
                         </div><!-- col-4 -->
+
+
+
+
+
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Business NUIS: <span class="tx-danger">*</span></label><br>
@@ -76,12 +81,7 @@
                             </div>
                         </div><!-- col-4 -->
 
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label class="form-control-label">Category: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->category_name }}</strong>
-                            </div>
-                        </div><!-- col-4 -->
+
 
                         <div class="col-lg-4">
                             <div class="form-group">
@@ -93,14 +93,14 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Business state: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->state_name }}</strong>
+                                <strong>{{\App\State::find($business->state_id)->state_name }}</strong>
                             </div>
                         </div><!-- col-4 -->
 
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label class="form-control-label">Business City: <span class="tx-danger">*</span></label><br>
-                                <strong>{{ $business->city_name }}</strong>
+                                <strong>{{\App\City::find($business->city_id)->city_name }}</strong>
                             </div>
                         </div><!-- col-4 -->
 

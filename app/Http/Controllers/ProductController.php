@@ -51,6 +51,10 @@ class ProductController extends Controller
             'message' => 'Product Inserted Successfully',
             'alert-type' => 'success'
         );
+        $notification2 = array(
+            'message' => 'Error. Please try again',
+            'alert-type' => 'error'
+        );
 
         if ($product->save())
         {
@@ -58,7 +62,7 @@ class ProductController extends Controller
         }
         else
         {
-            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+            return redirect()->back()->with($notification2);
         }
     }
 

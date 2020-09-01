@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class BusinessTypeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index()
     {
@@ -33,33 +29,42 @@ class BusinessTypeController extends Controller
                 'type_name' => 'required',
             ]);
 
+        $notification = array(
+            'message' => 'Please fill all the fields',
+            'alert-type' => 'error'
+        );
+
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+            return Redirect()->back()->with($notification);
         }
 
         $business_type = new BusinessType();
         $business_type->type_name = $request->type_name;
         $business_type->isActive = $request->isActive;
 
-        $notification = array(
+        $notification1 = array(
             'message' => 'Business Type Inserted Successfully',
             'alert-type' => 'success'
+        );
+        $notification2 = array(
+            'message' => 'Error. Please try again',
+            'alert-type' => 'error'
         );
 
         if ($business_type->save())
         {
-            return Redirect()->back()->with($notification);
+            return Redirect()->back()->with($notification1);
         }
         else
         {
-            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+            return Redirect()->back()->with($notification2);
         }
     }
 
     public function EditBusinessType($id)
     {
 
-        $business_type = BusinessType::where('id', $id)->first();
+        $business_type = BusinessType::findOrFail($id);
         return view('business.type.edit', compact('business_type'));
 
     }
@@ -72,26 +77,38 @@ class BusinessTypeController extends Controller
                 'type_name' => 'required',
             ]);
 
+        $notification = array(
+            'message' => 'Please fill all the fields',
+            'alert-type' => 'error'
+        );
+
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+            return Redirect()->back()->with($notification);
         }
 
-        $business_type = BusinessType::find($id);;
+        $business_type = BusinessType::find($id);
         $business_type->type_name = $request->type_name;
         $business_type->isActive = $request->isActive;
 
-        $notification = array(
+
+
+        $notification1 = array(
             'message' => 'Business Type has been updated successfully',
             'alert-type' => 'success'
         );
 
+        $notification2 = array(
+            'message' => 'Error. Please try again',
+            'alert-type' => 'error'
+        );
+
         if ($business_type->save())
         {
-            return Redirect()->route('all.business.types')->with($notification);
+            return Redirect()->route('all.business.types')->with($notification1);
         }
         else
         {
-            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+            return Redirect()->back()->with($notification2);
         }
     }
 

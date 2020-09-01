@@ -29,7 +29,7 @@
                                 </div>
                             </div><!-- col-4 -->
 
-                        </div><!-- end row -->
+
 
 
                         <div class="col-lg-6">
@@ -47,7 +47,7 @@
                                 </select>
                             </div>
                         </div><!-- col-4 -->
-
+                        </div><!-- end row -->
                         <br><br>
 
 

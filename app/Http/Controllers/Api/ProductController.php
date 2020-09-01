@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\BusinessCategory;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductCategory;
 use App\User;
-use App\dddBusiness;
-use App\sdddd;
 use App\ViewProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,19 +19,40 @@ class ProductController extends Controller
     public function categorylist()
     {
 
-        $productCategory = ProductCategory::all();
-        return response()->json($productCategory);
+        $productsCategory = ProductCategory::all();
+        $data = array();
+        foreach ($productsCategory as $productCategory) {
+            $obj = [
+                'product_name' => $productCategory->name,
+                'product_description' => $productCategory->description,
+
+            ];
+            array_push($data, $obj);
+        }
+
+        return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
+
+
 
     public function productlistByBusinessId()
     {
 
-        $product = Product::where('user_id',Auth::guard('api')->user()->id)
-            ->orderBy('id','DESC')
-            ->get();
 
-        return response()->json($product);
+        $products = Product::where('user_id',Auth::guard('api')->user()->id)->get();
+        $data = array();
+        foreach ($products as $product) {
+            $obj = [
+                'product_name' => $product->product_name,
+                'category_name' => BusinessCategory::find($product->category_id)->category_name,
+            ];
+            array_push($data, $obj);
+        }
+
+        return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
+
+
 
     public function store(Request $request)
     {
@@ -41,10 +61,13 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 'product_name' => 'required',
             ]);
-
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+            return response()->json([
+                'error' => true,
+                'message' => 'validation fails',
+            ]);
         }
+
 
         $product = new Product();
         $product->category_id = $request->category_id;
@@ -68,15 +91,22 @@ class ProductController extends Controller
         }
     }
 
-    public function MostViewedProducts(){
+    public function MostViewedProducts()
+    {
 
-        $ViewProduct = ViewProduct::select(DB::raw('count(*) as user_count, product_id'))
-            ->groupBy('product_id')
-            ->orderBy('user_count', 'desc')
-            ->get();
+        $products = Product::all();
+        $data = array();
+        foreach ($products as $product) {
+            $obj = [
+                'product_name' => $product->product_name,
+                'user_count' => ViewProduct::where('product_id', $product->id)->count(),
+            ];
+            array_push($data, $obj);
+        }
 
 
-        return response()->json($ViewProduct);
+        return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
+
 
 }

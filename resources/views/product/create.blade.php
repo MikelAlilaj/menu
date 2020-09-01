@@ -37,8 +37,8 @@
 
 
 
-                        </div><!-- end row -->
-                        <div class="col-lg-4">
+
+                        <div class="col-lg-6">
                             <div class="form-group mg-b-10-force">
                                 <label class="form-control-label">Category: <span class="tx-danger">*</span></label>
                                 <select class="form-control select2" data-placeholder="Choose country" name="category_id" required>
@@ -49,6 +49,8 @@
                                 </select>
                             </div>
                         </div><!-- col-4 -->
+
+                        </div><!-- end row -->
                     </div>
 
                     <br><br>
