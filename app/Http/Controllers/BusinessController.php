@@ -9,41 +9,24 @@ use Illuminate\Support\Facades\DB;
 class BusinessController extends Controller
 {
 
-    public function index()
-    {
+    public function index(){
         $business = User::where('status',1)->get();
         return view('business.approved', compact('business'));
     }
 
-
-    public function ViewActiveBusiness($id)
-    {
-
+    public function ViewActiveBusiness($id){
         $business = User::findorfail($id);
-
-        if($business){
-            return view('business.viewapproved', compact('business'));
-        }else{
-            return view('errors.404');
-        }
+        return view('business.viewapproved', compact('business'));
     }
-
 
     public function NewBusiness(){
-
         $business = User::where('status',0)->get();
         return view('business.pending', compact('business'));
-
     }
 
-    public function ViewNewBusiness($id)
-    {
-
+    public function ViewNewBusiness($id){
         $business = User::findorfail($id);
-
-            return view('business.viewpending', compact('business'));
-
-
+        return view('business.viewpending', compact('business'));
     }
 
     public function BusinessAccept($id){

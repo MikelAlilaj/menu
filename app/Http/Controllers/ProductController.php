@@ -13,20 +13,13 @@ class ProductController extends Controller
 {
     public function index()
     {
-
-            $product = Product::where('user_id',Auth::id())
-                ->orderBy('id','DESC')
-                ->get();
-
+            $product = Product::where('user_id',Auth::id())->get();
             return view('product.index', compact('product'));
-
     }
 
-    public function create(){
-
-
+    public function create()
+    {
         $productCategory = ProductCategory::all();
-
         return view('product.create',compact('productCategory'));
     }
 
@@ -39,7 +32,11 @@ class ProductController extends Controller
             ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+            $notification = array(
+                'message' => 'Please fill all the fields',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
         }
 
         $product=new Product();
@@ -47,33 +44,37 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->user_id = Auth::user()->id;
 
-        $notification = array(
-            'message' => 'Product Inserted Successfully',
-            'alert-type' => 'success'
-        );
-        $notification2 = array(
-            'message' => 'Error. Please try again',
-            'alert-type' => 'error'
-        );
 
         if ($product->save())
         {
-            return Redirect()->back()->with($notification);
+            $notification1 = array(
+                'message' => 'Product Inserted Successfully',
+                'alert-type' => 'success'
+            );
+            return Redirect()->back()->with($notification1);
         }
         else
         {
+            $notification2 = array(
+                'message' => 'Error. Please try again',
+                'alert-type' => 'error'
+            );
             return redirect()->back()->with($notification2);
         }
     }
 
     public function EditProduct($id)
     {
-        $product = Product::where('id', $id)->first();
+        $product = Product::findOrFail($id);
         if ($product->user_id == Auth::id()) {
             return view('product.edit', compact('product'));
         } else
         {
-            return redirect()->back()->with('error', sprintf('Kerkesa juaj nuk mund te procesohet.'));
+            $notification2 = array(
+                'message' => 'Error. Please try again',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification2);
         }
 
 
@@ -86,7 +87,11 @@ class ProductController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill in all fields.'));
+            $notification = array(
+                'message' => 'Please fill all the fields',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
         }
 
 
@@ -95,19 +100,21 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->product_name = $request->product_name;
 
-
-        $notification = array(
-            'message' => 'Product has been updated successfully',
-            'alert-type' => 'success'
-        );
-
         if ($product->save())
         {
-            return Redirect()->route('all.products')->with($notification);
+            $notification1 = array(
+                'message' => 'Product has been updated successfully',
+                'alert-type' => 'success'
+            );
+            return Redirect()->route('all.products')->with($notification1);
         }
         else
         {
-            return redirect()->back()->with('error', sprintf('Error. Please try again'));
+            $notification2 = array(
+                'message' => 'Error. Please try again',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification2);
         }
     }
 

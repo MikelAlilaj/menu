@@ -18,14 +18,12 @@ class ProductController extends Controller
 
     public function categorylist()
     {
-
         $productsCategory = ProductCategory::all();
         $data = array();
         foreach ($productsCategory as $productCategory) {
             $obj = [
                 'product_name' => $productCategory->name,
                 'product_description' => $productCategory->description,
-
             ];
             array_push($data, $obj);
         }
@@ -34,11 +32,8 @@ class ProductController extends Controller
     }
 
 
-
     public function productlistByBusinessId()
     {
-
-
         $products = Product::where('user_id',Auth::guard('api')->user()->id)->get();
         $data = array();
         foreach ($products as $product) {
@@ -51,7 +46,6 @@ class ProductController extends Controller
 
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
-
 
 
     public function store(Request $request)
@@ -68,7 +62,6 @@ class ProductController extends Controller
             ]);
         }
 
-
         $product = new Product();
         $product->category_id = $request->category_id;
         $product->product_name = $request->product_name;
@@ -80,7 +73,6 @@ class ProductController extends Controller
         );
 
         if ($product->save()) {
-
         return response()->json([
             'error' => false,
             'message' => 'Product Inserted Successfully',
@@ -93,7 +85,6 @@ class ProductController extends Controller
 
     public function MostViewedProducts()
     {
-
         $products = Product::all();
         $data = array();
         foreach ($products as $product) {
@@ -104,9 +95,7 @@ class ProductController extends Controller
             array_push($data, $obj);
         }
 
-
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
-
 
 }

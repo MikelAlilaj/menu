@@ -24,21 +24,21 @@ class BusinessController extends Controller
     {
         $validator = Validator::make($request->all(),
             [
-                'type_id' => 'required',
-                'category_id' => 'required',
-                'state_id' => 'required',
-                'city_id' => 'required',
-                'FirstName' => 'required',
-                'LastName' => 'required',
-                'Business_Name' => 'required',
-                'Business_Description' => 'required',
-                'Business_NUIS' => 'required',
-                'Business_Web' => 'required',
-                'Business_Phone' => 'required',
+                'type_id' => 'required|integer',
+                'category_id' => 'required|integer',
+                'state_id' => 'required|integer',
+                'city_id' => 'required|integer',
+                'FirstName' => 'required|string|max:255',
+                'LastName' => 'required|string|max:255',
+                'Business_Name' => 'required|string|max:255',
+                'Business_Description' => 'required|max:555',
+                'Business_NUIS' => 'required|max:15',
+                'Business_Web' => 'required|max:100',
+                'Business_Phone' => 'required|string|max:255',
                 'latitude' => 'required',
                 'longtitude' => 'required',
-                'email' => 'required',
-                'password' => 'required',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' =>  'required|min:8',
             ]);
 
         if ($validator->fails()) {
@@ -48,9 +48,7 @@ class BusinessController extends Controller
             ]);
         }
 
-
          User::create([
-
 
             'status' => 0,
             'type_id' => $request['type_id'],
@@ -72,23 +70,19 @@ class BusinessController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
 
-
         ]);
-
 
         return response()->json([
             'error' => false,
             'message' => 'Business Inserted Successfully',
         ]);
 
-
     }
-
     public function login(Request $request)
     {
         $login = $request->validate([
-            'email' => 'required|string',
-            'password' => 'required|string'
+            'email' => 'required',
+            'password' => 'required'
         ]);
         if (!Auth::attempt($login)) {
 
@@ -154,7 +148,6 @@ class BusinessController extends Controller
             array_push($data, $obj);
         }
 
-
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
 
@@ -173,7 +166,6 @@ class BusinessController extends Controller
                 'Business_Web' => $user->Business_Web,
                 'Business_Phone' => $user->Business_Phone,
                 'Email' => $user->email,
-
                 'type_name' => BusinessType::find($user->type_id)->type_name,
                 'category_name' => BusinessCategory::find($user->category_id)->category_name,
                 'state_name' => State::find($user->state_id)->state_name,
@@ -182,11 +174,8 @@ class BusinessController extends Controller
             ];
             array_push($data, $obj);
 
-
-
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
-
 
 
 }

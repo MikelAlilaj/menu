@@ -15,10 +15,8 @@ class ProductCategoryController extends Controller
 
     public function index()
     {
-
         $productCategory = ProductCategory::all();
         return view('product.category.index', compact('productCategory'));
-
     }
 
     public function create()
@@ -67,25 +65,17 @@ class ProductCategoryController extends Controller
 
     public function EditProductCategory($id)
     {
-
         $productCategory = ProductCategory::findorfail($id);
-
         return view('product.category.edit', compact('productCategory'));
-
     }
 
     public function UpdateProductCategory(Request $request, $id)
     {
-        //
-
         $input = $request->all();
-
         $productCategory = productCategory::find($id);
 
         if ($file = $request->file('photo_id')) {
-
             $productCategory->photos()->delete();
-
             foreach ($request->photo_id as $key => $image) {
                 $name = time() . $image->getClientOriginalName();
                 $image->move('images', $name);
@@ -94,9 +84,7 @@ class ProductCategoryController extends Controller
                     'file' => $name
                 ]);
             }
-
         }
-
 
         $productCategory->update($input);
 

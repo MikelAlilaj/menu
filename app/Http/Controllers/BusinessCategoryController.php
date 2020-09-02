@@ -12,14 +12,10 @@ use Illuminate\Support\Facades\Validator;
 class BusinessCategoryController extends Controller
 {
 
-
-
     public function index()
     {
-
             $business_category = BusinessCategory::all();
             return view('business.category.index', compact('business_category'));
-
     }
 
     public function create()
@@ -34,36 +30,32 @@ class BusinessCategoryController extends Controller
                 'category_name' => 'required',
             ]);
 
-        $notification = array(
-            'message' => 'Please fill all the fields',
-            'alert-type' => 'error'
-        );
-
         if ($validator->fails()) {
+            $notification = array(
+                'message' => 'Please fill all the fields',
+                'alert-type' => 'error'
+            );
             return Redirect()->back()->with($notification);
         }
-
 
         $business_category=new BusinessCategory();
         $business_category->category_name = $request->category_name;
         $business_category->isActive = $request->isActive;
 
-        $notification1 = array(
-            'message' => 'Business Category Inserted Successfully',
-            'alert-type' => 'success'
-        );
-
-        $notification2 = array(
-            'message' => 'Error. Please try again',
-            'alert-type' => 'error'
-        );
-
         if ($business_category->save())
         {
+            $notification1 = array(
+                'message' => 'Business Category Inserted Successfully',
+                'alert-type' => 'success'
+            );
             return Redirect()->back()->with($notification1);
         }
         else
         {
+            $notification2 = array(
+                'message' => 'Error. Please try again',
+                'alert-type' => 'error'
+            );
             return Redirect()->back()->with($notification2);
         }
     }
@@ -82,29 +74,30 @@ class BusinessCategoryController extends Controller
             ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('error', sprintf('Please fill all the fields'));
+            $notification = array(
+                'message' => 'Please fill all the fields',
+                'alert-type' => 'error'
+            );
+            return Redirect()->back()->with($notification);
         }
 
         $business_category=BusinessCategory::find($id);;
         $business_category->category_name = $request->category_name;
         $business_category->isActive = $request->isActive;
 
-        $notification = array(
+        if ($business_category->save()) {
+            $notification1 = array(
             'message' => 'Business Category has been updated successfully',
             'alert-type' => 'success'
         );
-        $notification1 = array(
+            return Redirect()->route('all.business.category')->with($notification1);
+        }
+        else {
+            $notification2 = array(
             'message' => 'Error. Please try again',
             'alert-type' => 'error'
         );
-
-        if ($business_category->save())
-        {
-            return Redirect()->route('all.business.category')->with($notification);
-        }
-        else
-        {
-            return redirect()->back()->with($notification1);
+            return redirect()->back()->with($notification2);
         }
     }
 

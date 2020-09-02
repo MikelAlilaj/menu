@@ -25,8 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-
         return view('home');
     }
 
@@ -55,7 +53,6 @@ class HomeController extends Controller
         return view('reports',compact('users','records','today_users','week_users','month_users','users30'));
     }
 
-
     public function Logout()
     {
         // $logout= Auth::logout();
@@ -65,8 +62,6 @@ class HomeController extends Controller
             'alert-type'=>'success'
         );
         return Redirect()->route('login')->with($notification);
-
-
     }
 
     public function ChangePassword()
@@ -91,18 +86,18 @@ class HomeController extends Controller
                 );
                 return Redirect()->route('all.products')->with($notification);
             }else{
-                $notification=array(
+                $notification1=array(
                     'message'=>'New password and Confirm Password not matched!',
                     'alert-type'=>'error'
                 );
-                return Redirect()->back()->with($notification);
+                return Redirect()->back()->with($notification1);
             }
         }else{
-            $notification=array(
+            $notification2=array(
                 'message'=>'Old Password not matched!',
                 'alert-type'=>'error'
             );
-            return Redirect()->back()->with($notification);
+            return Redirect()->back()->with($notification2);
         }
     }
 

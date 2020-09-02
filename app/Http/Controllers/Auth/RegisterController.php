@@ -56,9 +56,6 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
 
-
-
-
             'type_id' => ['required'],
             'category_id' => ['required'],
             'state_id' => ['required'],
@@ -122,6 +119,7 @@ class RegisterController extends Controller
         $business_types  = BusinessType::all();
 
         $state = State::all();
+
         $city=City::join('states','cities.state_id','states.id')
             ->select('cities.*','states.state_name')
             ->get();
