@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
 
-    public function categorylist()
+    public function categoryList()
     {
         $productsCategory = ProductCategory::all();
         $data = array();
@@ -32,7 +32,7 @@ class ProductController extends Controller
     }
 
 
-    public function productlistByBusinessId()
+    public function productListByBusinessId()
     {
         $products = Product::where('user_id',Auth::guard('api')->user()->id)->get();
         $data = array();
@@ -83,7 +83,7 @@ class ProductController extends Controller
         }
     }
 
-    public function MostViewedProducts()
+    public function mostViewedProducts()
     {
         $products = Product::all();
         $data = array();

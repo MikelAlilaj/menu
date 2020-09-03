@@ -21,15 +21,15 @@ Route::middleware('auth:api')->get('/all','Api\BusinessController@index');
 
 Route::post('store_business', 'Api\BusinessController@store')->name('store_business');
 Route::post('login_business', 'Api\BusinessController@login')->name('login_business');
-Route::post('update_business/{id}', 'Api\BusinessController@updatebyid')->name('update_business');
-Route::get('who_has_viewed', 'Api\BusinessController@WhoHasViewed')->name('who_has_viewed');
-Route::get('show_business/{id}', 'Api\BusinessController@ShowBusiness')->name('show_business');
+Route::post('update_business/{id}', 'Api\BusinessController@updateById')->name('update_business');
+Route::get('who_has_viewed', 'Api\BusinessController@whoHasViewed')->name('who_has_viewed');
+Route::get('show_business/{id}', 'Api\BusinessController@showBusiness')->name('show_business');
 
-Route::get('category_list','Api\ProductController@categorylist');
+Route::get('category_list','Api\ProductController@categoryList');
 
-Route::get('product_list','Api\ProductController@productlistByBusinessId')->name('product_list');
+Route::get('product_list','Api\ProductController@productListByBusinessId')->name('product_list');
 Route::post('store_product', 'Api\ProductController@store')->name('store_product');
-Route::get('most_viewed_products', 'Api\ProductController@MostViewedProducts')->name('most_viewed_products');
+Route::get('most_viewed_products', 'Api\ProductController@mostViewedProducts')->name('most_viewed_products');
 
 
 

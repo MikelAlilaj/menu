@@ -45,10 +45,12 @@ class BusinessController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => 'validation fails',
+
             ]);
         }
 
-         User::create([
+
+        $user =  User::create([
 
             'status' => 0,
             'type_id' => $request['type_id'],
@@ -72,12 +74,25 @@ class BusinessController extends Controller
 
         ]);
 
-        return response()->json([
-            'error' => false,
-            'message' => 'Business Inserted Successfully',
-        ]);
+        if ($user->save())
+        {
+            return response()->json([
+                'error' => false,
+                'message' => 'Business Inserted Successfully',
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'error' => false,
+                'message' => 'Error. Please try again',
+            ]);
 
+        }
     }
+
+
+
     public function login(Request $request)
     {
         $login = $request->validate([
@@ -100,7 +115,7 @@ class BusinessController extends Controller
         ]);
     }
 
-    public function updatebyid(Request $request,$id){
+    public function updateById(Request $request,$id){
 
             $validator = Validator::make($request->all(),
                 [
@@ -136,14 +151,14 @@ class BusinessController extends Controller
         ]);
     }
 
-    public function WhoHasViewed(){
+    public function whoHasViewed(){
 
-        $ViewBusiness = ViewBusiness::all();
+        $viewBusiness = ViewBusiness::all();
         $data = array();
-        foreach ($ViewBusiness as $Business) {
+        foreach ($viewBusiness as $business) {
             $obj = [
-                'First_Name' =>User::find($Business->user_id)->FirstName,
-                'view_by' => User::find($Business->view_by_id)->FirstName,
+                'First_Name' =>User::find($business->user_id)->FirstName,
+                'view_by' => User::find($business->view_by_id)->FirstName,
             ];
             array_push($data, $obj);
         }
@@ -153,7 +168,7 @@ class BusinessController extends Controller
 
 
 
-    public function ShowBusiness($id){
+    public function showBusiness($id){
         $user=User::find($id);
         $data = array();
 

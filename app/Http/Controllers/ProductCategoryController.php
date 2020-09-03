@@ -63,13 +63,13 @@ class ProductCategoryController extends Controller
 
     }
 
-    public function EditProductCategory($id)
+    public function editProductCategory($id)
     {
         $productCategory = ProductCategory::findorfail($id);
         return view('product.category.edit', compact('productCategory'));
     }
 
-    public function UpdateProductCategory(Request $request, $id)
+    public function updateProductCategory(Request $request, $id)
     {
         $input = $request->all();
         $productCategory = productCategory::find($id);
@@ -90,7 +90,7 @@ class ProductCategoryController extends Controller
 
         if ($productCategory) {
             $notification = array(
-                'message' => 'Business Category Successfully Updated',
+                'message' => 'Product Category Successfully Updated',
                 'alert-type' => 'success'
             );
             return Redirect()->route('all.product.category')->with($notification);

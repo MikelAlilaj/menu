@@ -14,22 +14,22 @@ class BusinessController extends Controller
         return view('business.approved', compact('business'));
     }
 
-    public function ViewActiveBusiness($id){
+    public function viewActiveBusiness($id){
         $business = User::findorfail($id);
         return view('business.viewapproved', compact('business'));
     }
 
-    public function NewBusiness(){
+    public function newBusiness(){
         $business = User::where('status',0)->get();
         return view('business.pending', compact('business'));
     }
 
-    public function ViewNewBusiness($id){
+    public function viewNewBusiness($id){
         $business = User::findorfail($id);
         return view('business.viewpending', compact('business'));
     }
 
-    public function BusinessAccept($id){
+    public function businessAccept($id){
         User::find($id)->update(['status'=>1]);
         $notification=array(
             'message'=>'The request has been approved',
@@ -38,7 +38,7 @@ class BusinessController extends Controller
         return Redirect()->route('new.business')->with($notification);
     }
 
-    public function BusinessCancel($id){
+    public function businessCancel($id){
         User::find($id)->update(['status'=>2]);
         $notification=array(
             'message'=>'The request has been declined',

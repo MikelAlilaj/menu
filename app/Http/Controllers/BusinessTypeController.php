@@ -59,13 +59,13 @@ class BusinessTypeController extends Controller
         }
     }
 
-    public function EditBusinessType($id)
+    public function editBusinessType($id)
     {
         $business_type = BusinessType::findOrFail($id);
         return view('business.type.edit', compact('business_type'));
     }
 
-    public function UpdateBusinessType(Request $request, $id)
+    public function updateBusinessType(Request $request, $id)
     {
         $validator = Validator::make($request->all(),
             [

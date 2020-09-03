@@ -60,13 +60,13 @@ class BusinessCategoryController extends Controller
         }
     }
 
-    public function EditBusinessCategory($id)
+    public function editBusinessCategory($id)
     {
         $business_category = BusinessCategory::findOrFail($id);
         return view('business.category.edit', compact('business_category'));
     }
 
-    public function UpdateBusinessCategory(Request $request, $id)
+    public function updateBusinessCategory(Request $request, $id)
     {
         $validator = Validator::make($request->all(),
             [
