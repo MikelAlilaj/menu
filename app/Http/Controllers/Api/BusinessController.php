@@ -24,27 +24,26 @@ class BusinessController extends Controller
     {
         $validator = Validator::make($request->all(),
             [
-                'type_id' => 'required|integer',
-                'category_id' => 'required|integer',
-                'state_id' => 'required|integer',
-                'city_id' => 'required|integer',
-                'FirstName' => 'required|string|max:255',
-                'LastName' => 'required|string|max:255',
-                'Business_Name' => 'required|string|max:255',
-                'Business_Description' => 'required|max:555',
-                'Business_NUIS' => 'required|max:15',
-                'Business_Web' => 'required|max:100',
-                'Business_Phone' => 'required|string|max:255',
+
+                'category_id' => 'required',
+                'city_id' => 'required',
+                'FirstName' => 'required',
+                'LastName' => 'required',
+                'Business_Name' => 'required',
+                'Business_Description' => 'required',
+                'Business_NUIS' => 'required',
+                'Business_Web' => 'required',
+                'Business_Phone' => 'required',
                 'latitude' => 'required',
                 'longtitude' => 'required',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' =>  'required|min:8',
+                'email' => 'required|unique:users',
+                'password' =>  'required',
             ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
-                'message' => 'validation fails',
+                'message' => $validator->errors(),
 
             ]);
         }
@@ -53,10 +52,10 @@ class BusinessController extends Controller
         $user =  User::create([
 
             'status' => 0,
-            'type_id' => $request['type_id'],
+            'type_id' => 1,
             'category_id' => $request['category_id'],
 
-            'state_id' => $request['state_id'],
+            'state_id' => 1,
             'city_id' => $request['city_id'],
 
             'FirstName' => $request['FirstName'],
@@ -128,12 +127,13 @@ class BusinessController extends Controller
                     'Business_Phone' => 'required',
                     'Email' => 'required',
                 ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'error' => true,
-                    'message' => 'validation fails',
-                ]);
-            }
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => true,
+                'message' => $validator->errors(),
+
+            ]);
+        }
         $user=User::find($id);
         $user->FirstName=$request->input('FirstName');
         $user->LastName=$request->input('LastName');
@@ -192,5 +192,37 @@ class BusinessController extends Controller
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
 
+
+    public function cities_list()
+    {
+        $cities = City::all();
+        $data = array();
+        foreach ($cities as $city) {
+            $obj = [
+                'city_id' => $city->id,
+                'city_name' => $city->city_name,
+
+            ];
+            array_push($data, $obj);
+        }
+
+        return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
+    }
+
+    public function business_category_list()
+    {
+        $businessCategories = BusinessCategory::all();
+        $data = array();
+        foreach ($businessCategories as $businessCategory) {
+            $obj = [
+                'business_category_id' => $businessCategory->id,
+                'business_category_name' => $businessCategory->category_name,
+
+            ];
+            array_push($data, $obj);
+        }
+
+        return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
+    }
 
 }

@@ -22,8 +22,9 @@ class ProductController extends Controller
         $data = array();
         foreach ($productsCategory as $productCategory) {
             $obj = [
-                'product_name' => $productCategory->name,
-                'product_description' => $productCategory->description,
+                'product_category_id' => $productCategory->id,
+                'product_category_name' => $productCategory->name,
+                'product_category_description' => $productCategory->description,
             ];
             array_push($data, $obj);
         }
@@ -38,6 +39,7 @@ class ProductController extends Controller
         $data = array();
         foreach ($products as $product) {
             $obj = [
+                'product_id' => $product->id,
                 'product_name' => $product->product_name,
                 'category_name' => BusinessCategory::find($product->category_id)->category_name,
             ];
@@ -55,10 +57,12 @@ class ProductController extends Controller
                 'category_id' => 'required',
                 'product_name' => 'required',
             ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
-                'message' => 'validation fails',
+                'message' => $validator->errors(),
+
             ]);
         }
 
@@ -97,5 +101,8 @@ class ProductController extends Controller
 
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
     }
+
+
+
 
 }

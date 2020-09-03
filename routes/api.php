@@ -24,8 +24,11 @@ Route::post('login_business', 'Api\BusinessController@login')->name('login_busin
 Route::post('update_business/{id}', 'Api\BusinessController@updateById')->name('update_business');
 Route::get('who_has_viewed', 'Api\BusinessController@whoHasViewed')->name('who_has_viewed');
 Route::get('show_business/{id}', 'Api\BusinessController@showBusiness')->name('show_business');
+Route::get('cities_list','Api\BusinessController@cities_list')->name('cities_list');
+Route::get('business_category_list','Api\BusinessController@business_category_list')->name('business_category_list');
 
 Route::get('category_list','Api\ProductController@categoryList');
+
 
 Route::get('product_list','Api\ProductController@productListByBusinessId')->name('product_list');
 Route::post('store_product', 'Api\ProductController@store')->name('store_product');
