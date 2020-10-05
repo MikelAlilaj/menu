@@ -8,7 +8,6 @@ use App\City;
 use App\Http\Controllers\Controller;
 use App\State;
 use App\User;
-use App\dddBusiness;
 use App\ViewBusiness;
 use App\ViewProduct;
 use Illuminate\Http\Request;
@@ -43,7 +42,7 @@ class BusinessController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all()[0]
 
             ]);
         }
@@ -62,7 +61,7 @@ class BusinessController extends Controller
             'LastName' => $request['LastName'],
             'Business_Name' => $request['Business_Name'],
             'Business_Description' => $request['Business_Description'],
-
+            'address' => $request['address'],
             'Business_NUIS' => $request['Business_NUIS'],
             'Business_Web' => $request['Business_Web'],
             'Business_Phone' => $request['Business_Phone'],
@@ -75,15 +74,20 @@ class BusinessController extends Controller
 
         if ($user->save())
         {
+
+            $accessToke = $user->createToken('authToken')->accessToken;
+
+
             return response()->json([
                 'error' => false,
-                'message' => 'Business Inserted Successfully',
+                'message' => 'Business Inserted Successfully','access_token' => $accessToke
             ]);
+
         }
         else
         {
             return response()->json([
-                'error' => false,
+                'error' => true,
                 'message' => 'Error. Please try again',
             ]);
 
@@ -101,16 +105,17 @@ class BusinessController extends Controller
         if (!Auth::attempt($login)) {
 
             return response()->json([
-                'error' => false,
+                'error' => true,
                 'message' => 'invalid login credentials.',
             ]);
     }
         $accessToke = Auth::user()->createToken('authToken')->accessToken;
+        $user_id=Auth::user()->id;
 
 
         return response()->json([
             'error' => false,
-            'message' => 'You are successfully logged in','access_token' => $accessToke
+            'message' => 'You are successfully logged in','access_token' => $accessToke,'user_id'=>$user_id,
         ]);
     }
 
@@ -118,6 +123,8 @@ class BusinessController extends Controller
 
             $validator = Validator::make($request->all(),
                 [
+                    'category_id' => 'required',
+                    'city_id' => 'required',
                     'FirstName' => 'required',
                     'LastName' => 'required',
                     'Business_Name' => 'required',
@@ -125,16 +132,22 @@ class BusinessController extends Controller
                     'Business_NUIS' => 'required',
                     'Business_Web' => 'required',
                     'Business_Phone' => 'required',
+                    'address' => 'required',
+                    'latitude' => 'required',
+                    'longtitude' => 'required',
                     'Email' => 'required',
+
                 ]);
         if ($validator->fails()) {
             return response()->json([
                 'error' => true,
-                'message' => $validator->errors(),
+                'message' => $validator->errors()->all()[0]
 
             ]);
         }
         $user=User::find($id);
+        $user->FirstName=$request->input('category_id');
+        $user->FirstName=$request->input('city_id');
         $user->FirstName=$request->input('FirstName');
         $user->LastName=$request->input('LastName');
         $user->Business_Name=$request->input('Business_Name');
@@ -142,12 +155,17 @@ class BusinessController extends Controller
         $user->Business_NUIS=$request->input('Business_NUIS');
         $user->Business_Web=$request->input('Business_Web');
         $user->Business_Phone=$request->input('Business_Phone');
+        $user->address=$request->input('address');
+        $user->latitude=$request->input('latitude');
+        $user->longtitude=$request->input('longtitude');
         $user->Email=$request->input('Email');
+
+
 
         $user->save();
         return response()->json([
             'error' => false,
-            'message' => 'Has been updated',
+            'message' => 'Business has been updated successfully',
         ]);
     }
 
@@ -170,7 +188,7 @@ class BusinessController extends Controller
 
     public function showBusiness($id){
         $user=User::find($id);
-        $data = array();
+
 
             $obj = [
                 'First_Name'=> $user->FirstName,
@@ -185,11 +203,14 @@ class BusinessController extends Controller
                 'category_name' => BusinessCategory::find($user->category_id)->category_name,
                 'state_name' => State::find($user->state_id)->state_name,
                 'city_name' => City::find($user->city_id)->city_name,
+                'address' => $user->address,
+                'latitude' => $user->latitude,
+                'longtitude' => $user->longtitude,
 
             ];
-            array_push($data, $obj);
 
-        return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
+
+        return response()->json(['error' => false, 'message' => 'Success', 'data' => $obj]);
     }
 
 
@@ -223,6 +244,70 @@ class BusinessController extends Controller
         }
 
         return response()->json(['error' => false, 'message' => 'Success', 'data' => $data]);
+    }
+
+
+    public function updatePassword(Request $request)
+    {
+        $password=Auth::user()->password;
+        $oldpass=$request->oldpass;
+        $newpass=$request->password;
+        $confirm=$request->password_confirmation;
+        if (Hash::check($oldpass,$password)) {
+            if ($newpass === $confirm) {
+                $user=User::find(Auth::id());
+                $user->password=Hash::make($request->password);
+                $user->save();
+                $notification=array(
+                    'message'=>'Password Changed Successfully ! Now Login with Your New Password',
+                    'alert-type'=>'success'
+                );
+                return Redirect()->route('all.products')->with($notification);
+            }else{
+                $notification1=array(
+                    'message'=>'New password and Confirm Password not matched!',
+                    'alert-type'=>'error'
+                );
+                return Redirect()->back()->with($notification1);
+            }
+        }else{
+            $notification2=array(
+                'message'=>'Old Password not matched!',
+                'alert-type'=>'error'
+            );
+            return Redirect()->back()->with($notification2);
+        }
+    }
+
+    public function change_password(Request $request)
+    {
+        $password=Auth::guard('api')->user()->password;
+        $oldpass=$request->oldpass;
+        $newpass=$request->password;
+        $confirm=$request->confirm_password;
+        if (Hash::check($oldpass,$password)) {
+            if ($newpass === $confirm) {
+                $user=User::find(Auth::guard('api')->user()->id);
+                $user->password=Hash::make($request->password);
+                $user->save();
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Password Changed Successfully ! Now Login with Your New Password',
+                ]);
+
+            }else{
+                return response()->json([
+                    'error' => false,
+                    'message' => 'New password and Confirm Password not matched!',
+                ]);
+            }
+        }else{
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Old Password not matched!',
+            ]);
+        }
     }
 
 }

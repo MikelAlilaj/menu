@@ -37,9 +37,7 @@ class ProductCategoryController extends Controller
             'name' => 'required',
             'description' => 'required',
 
-
         ]);
-
 
         $input = $request->all();
         $user = Auth::user();
